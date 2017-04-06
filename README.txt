@@ -1,7 +1,7 @@
 # csc592finalproject
 
-// setup for the first time
-git clone <path>
+// setup for the first time, do this in the directory where you want to store the files
+git clone https://github.com/mbellows/csc592finalproject.git
 
 -------------
 // When doing all these commands in the terminal, you must be in the path you specified for the project
