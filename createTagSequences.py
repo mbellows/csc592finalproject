@@ -1,70 +1,107 @@
 import nltk
 
-#Import/read text file to text variable. I got Pride and Prejudice from Project Gutenberg and 
+#Import/read text file to text variable. I got Pride and Prejudice from Project Gutenberg and
 #put it in "pandp.txt" so we can test it out. Is this the best way to go about it?
 
 #Open a file and return read file as string
-def openNewSentence(someFileName):
-	with open(someFileName, 'r+') as fileInput:
-		newSentence = fileInput.read()
+def openNewText(someFileName):
+    with open(someFileName, 'r+') as fileInput:
+        newText = fileInput.read()
 
-		return newSentence
+        return newText
 
 #If you want to use some hard-coded text to test
 def useTestSentence():
-	text = """It is a truth universally acknowledged, that a single man in possession
-	of a good fortune, must be in want of a wife.
+    text = """It is a truth universally acknowledged, that a single man in possession
+    of a good fortune, must be in want of a wife.
 
-	However little known the feelings or views of such a man may be on his
-	first entering a neighbourhood, this truth is so well fixed in the minds
-	of the surrounding families, that he is considered the rightful property
-	of some one or other of their daughters.
-	"""
+    However little known the feelings or views of such a man may be on his
+    first entering a neighbourhood, this truth is so well fixed in the minds
+    of the surrounding families, that he is considered the rightful property
+    of some one or other of their daughters.
+    """
 
-	return text
+    return text
 
 #Convert sentences to list of tags and then call write function
 def convertToTags(someSentences):
-	#Converting sentences into POS tags.
-	for sents in someSentences:
-		tokens = nltk.word_tokenize(sents)      #Sents converted to list of words.
-		tagged = nltk.pos_tag(tokens)           #Words to word and POS tag pairs.
+    #Converting sentences into POS tags.
+    overallList = []
+    for sents in someSentences:
+        tokens = nltk.word_tokenize(sents)      #Sents converted to list of words.
+        tagged = nltk.pos_tag(tokens)           #Words to word and POS tag pairs.
 
-		tags = [tags[1] for tags in tagged]     #Just the tags.
+        tags = [tags[1] for tags in tagged]     #Just the tags.
+        overallList.append(tags)
+    return overallList
 
-		#Write tags to a file
-		writeTagsToFile(tags)
 
 #Append tags to output file
 #So if you keep running it without deleting output file, it'll append over and over
-def writeTagsToFile(someListOfTags):
-	with open('allTagSequences.txt', 'a') as fileOutput:
-		for tag in someListOfTags:
-			fileOutput.write(tag + "\t")        #Export the tags (separated here by a tab)
-		fileOutput.write("\n")                  #Every sentence's tag sequence will start on a new line
+def writeTagsToFile(someListOfTagSequences):
+    with open('allTagSequences.txt', 'a+') as fileDatabase:
+        for sequence in someListOfTagSequences:
+            if(checkForExistingPattern(sequence, fileDatabase) is False):
+                for tag in sequence:
+                    fileDatabase.write(tag + "\t")        #Export the tags (separated here by a tab)
+                fileDatabase.write("\n")                  #Every sentence's tag sequence will start on a new line
 
 
 #Will be used to check for a match or check for duplicates
-def checkForExistingPattern(somePatternOfTags):
-	print("test")
+#Given ONE sequence of patterns and a file, checks to see if there is a match
+def checkForExistingPattern(somePattern, fileData):
+    fileData.seek(0)
+    lines = fileData.readlines()
 
+    for line in lines:
+        line = line.split("\t")
+        line = line[:-1]
+        #print(line)
+        #print(somePattern)
+        if(somePattern == line):
+            return True
+    return False
+
+def sortList(someListOfTags):
+    print("sort")
+
+def gradeSummary(listOfSummarySentences):
+    with open('allTagSequences.txt', 'r') as fileDatabase:
+        for sequence in listOfSummarySentences:
+            if(checkForExistingPattern(sequence, fileDatabase) is False):
+                print("THATS NOT REAL GRAMMAR, SUMMARY FAILED")
+            else:
+                print("GRAMMAR CHECKS OUT")
 
 #Main function
 def main():
-	#Open a file and import the text in
-	importSentence = openNewSentence("randSents.txt")
+    #Open a file and import the text in for our "database"
+    importSentence = openNewText("randSents.txt")
 
-	#If you want to use the hard coded test sentence
-	#Just replace the importSentence parameter below with testSentence
-	testSentence = useTestSentence();
+    #If you want to use the hard coded test sentence
+    #just replace the importSentence parameter below with testSentence
+    testSentence = useTestSentence();
 
-	#Convert raw text into list of sentences.
-	sentences = nltk.sent_tokenize(importSentence)
+    #Convert raw text into list of sentences.
+    sentences = nltk.sent_tokenize(importSentence)
 
-	#Convert the sentences to a list of tags
-	convertToTags(sentences)
+    #Convert the sentences to a list of tags
+    listOfTags = convertToTags(sentences)
 
-	
+    #Will try to write add new sequences, if not already included
+    writeTagsToFile(listOfTags)
+
+    #Check a sequence and responds with match or not
+    #Currently just using hardcoded examples, but they will
+    #be read in from one of the computerized summeries
+    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.']])    #Bad Grammar (Made up 'PRQ')
+    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
+
+    #Open the new sentences, tokenize it, convert it to just tokens
+    #newSentence = openNewSentence("newSentence.txt")
+    #sentencesToCheck = nltk.sent_tokenize(importSentence)
+    #convertToTags(sentencesToCheck)
+
 
 #Start the program
 main()
