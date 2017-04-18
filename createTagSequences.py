@@ -50,17 +50,15 @@ def writeTagsToFile(someListOfTagSequences):
 #Will be used to check for a match or check for duplicates
 #Given ONE sequence of patterns and a file, checks to see if there is a match
 def checkForExistingPattern(somePattern, fileData):
-    fileData.seek(0)
-    lines = fileData.readlines()
+    fileData.seek(0)                #Resets cursor to beginning of file
+    lines = fileData.readlines()    #Reads all lines of file
 
     for line in lines:
-        line = line.split("\t")
-        line = line[:-1]
-        #print(line)
-        #print(somePattern)
+        line = line.split("\t")     #Split string of POS back into list of POS
+        line = line[:-1]            #Strips off random '\n' that gets added?
         if(somePattern == line):
-            return True
-    return False
+            return True             #If match, jump out of loop and return True
+    return False                    #If never a match, return False
 
 def sortList(someListOfTags):
     print("sort")
