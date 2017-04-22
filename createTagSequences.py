@@ -60,8 +60,14 @@ def checkForExistingPattern(somePattern, fileData):
             return True             #If match, jump out of loop and return True
     return False                    #If never a match, return False
 
-def sortList(someListOfTags):
-    print("sort")
+#Opens up the current file and sorts alphabetically. 
+def sortFile(fileName):
+    fileData = open(fileName, 'r+')
+    lines = fileData.readlines()
+    fileData.seek(0)
+    lines.sort()
+    for line in lines:
+        fileData.write(line)
 
 def gradeSummary(listOfSummarySentences):
     with open('allTagSequences.txt', 'r') as fileDatabase:
@@ -88,6 +94,9 @@ def main():
 
     #Will try to write add new sequences, if not already included
     writeTagsToFile(listOfTags)
+
+    #Sort the specifice file by line.
+    sortFile('allTagSequences.txt')
 
     #Check a sequence and responds with match or not
     #Currently just using hardcoded examples, but they will
