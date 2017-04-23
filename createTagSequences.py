@@ -1,8 +1,5 @@
 import nltk
 
-#Import/read text file to text variable. I got Pride and Prejudice from Project Gutenberg and
-#put it in "pandp.txt" so we can test it out. Is this the best way to go about it?
-
 #Open a file and return read file as string
 def openNewText(someFileName):
     with open(someFileName, 'r+') as fileInput:
@@ -60,6 +57,7 @@ def checkForExistingPattern(somePattern, fileData):
             return True             #If match, jump out of loop and return True
     return False                    #If never a match, return False
 
+
 #Opens up the current file and sorts alphabetically. 
 def sortFile(fileName):
     fileData = open(fileName, 'r+')
@@ -69,18 +67,23 @@ def sortFile(fileName):
     for line in lines:
         fileData.write(line)
 
+
 def gradeSummary(listOfSummarySentences):
     with open('allTagSequences.txt', 'r') as fileDatabase:
+        score = 0
+        numSeqs = 0
         for sequence in listOfSummarySentences:
-            if(checkForExistingPattern(sequence, fileDatabase) is False):
-                print("THATS NOT REAL GRAMMAR, SUMMARY FAILED")
-            else:
-                print("GRAMMAR CHECKS OUT")
+            numSeqs += 1                                                        #Keeps track of total sentences
+            if(checkForExistingPattern(sequence, fileDatabase) is True):
+                score += 1                                                      #If real sentence, score increases
+        
+        print(score/numSeqs)
 
 #Main function
 def main():
+
     #Open a file and import the text in for our "database"
-    importSentence = openNewText("randSents.txt")
+    importSentence = openNewText("shortSents.txt")
 
     #If you want to use the hard coded test sentence
     #just replace the importSentence parameter below with testSentence
@@ -101,7 +104,7 @@ def main():
     #Check a sequence and responds with match or not
     #Currently just using hardcoded examples, but they will
     #be read in from one of the computerized summeries
-    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.']])    #Bad Grammar (Made up 'PRQ')
+    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.'],['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])    #Bad Grammar (Made up 'PRQ')
     gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
 
     #Open the new sentences, tokenize it, convert it to just tokens
