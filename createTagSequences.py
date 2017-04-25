@@ -83,7 +83,7 @@ def gradeSummary(listOfSummarySentences):
 def main():
 
     #Open a file and import the text in for our "database"
-    importSentence = openNewText("shortSents.txt")
+    importSentence = openNewText("picturedg.txt")
 
     #If you want to use the hard coded test sentence
     #just replace the importSentence parameter below with testSentence
