@@ -72,40 +72,47 @@ def gradeSummary(listOfSummarySentences):
     with open('allTagSequences.txt', 'r') as fileDatabase:
         score = 0
         numSeqs = 0
+        grades = []
         for sequence in listOfSummarySentences:
             numSeqs += 1                                                        #Keeps track of total sentences
-            if(checkForExistingPattern(sequence, fileDatabase) is True):
-                score += 1                                                      #If real sentence, score increases
+            if(checkForExistingPattern(sequence, fileDatabase) is True):        #If real sentence, score increases
+                score += 1 
+                grades.append(1)
+            else:
+                grades.append(0)                                                     
         
         print(score/numSeqs)
+        print(grades)
 
 #Main function
 def main():
 
     #Open a file and import the text in for our "database"
-    importSentence = openNewText("picturedg.txt")
+#    importSentence = openNewText("randSents.txt")
 
     #If you want to use the hard coded test sentence
     #just replace the importSentence parameter below with testSentence
-    testSentence = useTestSentence();
+#    testSentence = useTestSentence();
 
     #Convert raw text into list of sentences.
-    sentences = nltk.sent_tokenize(importSentence)
+#    sentences = nltk.sent_tokenize(importSentence)
 
     #Convert the sentences to a list of tags
-    listOfTags = convertToTags(sentences)
+#    listOfTags = convertToTags(sentences)
 
     #Will try to write add new sequences, if not already included
-    writeTagsToFile(listOfTags)
+#    writeTagsToFile(listOfTags)
 
     #Sort the specifice file by line.
-    sortFile('allTagSequences.txt')
+#    sortFile('allTagSequences.txt')
 
     #Check a sequence and responds with match or not
     #Currently just using hardcoded examples, but they will
     #be read in from one of the computerized summeries
     gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.'],['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])    #Bad Grammar (Made up 'PRQ')
     gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
+
+    gradeSummary(convertToTags(nltk.sent_tokenize(openNewText("gradeSents.txt"))))
 
     #Open the new sentences, tokenize it, convert it to just tokens
     #newSentence = openNewSentence("newSentence.txt")
