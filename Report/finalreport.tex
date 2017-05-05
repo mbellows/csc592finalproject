@@ -5,13 +5,13 @@
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \linespread{1.5}
 
-\title{GRAMMAR}
+\title{Investigation into English Grammar}
 \author{
         Martha Bellows 
 \and
         Antoinette Bongiorno
 \and 
-	Brandon Digiulio
+	Brandon DiGiulio
 }
 
 \begin{document}
@@ -35,56 +35,148 @@ Discuss previous paper and how we feel native English speakers grading sentences
 
 
 % --------------------------------------------------------------------
-\subsection{Another subsection?}
+\subsection{Motivation}
 % --------------------------------------------------------------------
+"We invited 3 English native speakers to do this evaluation." -- original paper 
+\begin{itemize}
+  \item Subjective
+  \item Unreplicable
+  \item Inconsistent
+\end{itemize}
+
+We recognize that there is a need for a more objective method of scoring the grammaticality of sentences in order to further research into the growing field of Automatic Text Summarization.
+Grammaticality evaluation will help rank competing systems as well as provide developers of new solutions with a means to measure the effectiveness of their systems.\\
+
 Some examples of citing formatting.\\
 
 Many hospitals face significant budgetary concerns and, due to Medicare regulations, excessive readmission rates reduce Medicare payments. In the United States, readmissions cost hospitals an average of 17.4 billion dollars per year \cite{catlin2008}. These attempts have varied in success with results averaging around 60 percent accuracy by using raw data~\cite{kansagara2011}. 
 
 % --------------------------------------------------------------------
-\subsection{Another subsection?}
+\subsection{NLP Community}
 % --------------------------------------------------------------------
-Not sure how many we need. Just showing that we can add as many as we want.
+\begin{itemize}
+   \item What is the community standard?
+   \begin{itemize}
+      \item ROUGE metric
+      \item Human Judgement
+   \end{itemize}
+   \item How is human judgement used?
+   \begin{itemize}
+      \item Subjective scoring on 1-5 scale
+      \item grammaticality, non-redundancy, clarity, coherence
+      \item Often random participants, native English speakers
+      \item DUC conference uses a set of questions for assessors
+   \end{itemize}
+      \item Why hasn't a more objective method been used before?
+   \begin{itemize}
+      \item There are commercial solutions to grammar checking
+      \item Aside from that, the NLP community has not adopted a more objective method
+      \item Very few instances of previous research, Quantitative evaluation of grammaticality of summaries (Ravikiran Vadlapudi and Rahul Katragadda, 2010)
+   \end{itemize}
+\end{itemize}
+
+% --------------------------------------------------------------------
+\subsection{Grammar}
+% --------------------------------------------------------------------
+What is grammar?\\
+The system of rules and syntax that defines how things should be written, spoken.\\
+Gives communication an understood, defined meaning between two or more parties.
+
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-\section{Data}
+\section{Parts of Speech Tagging}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Discuss how we got our data (project gutenberg).
-
-% --------------------------------------------------------------------
-\subsection{Method for Creating Tag Dictionary}
-% --------------------------------------------------------------------
-
-Discuss the algorithm we come up with to create the "dictionary."
-
-\pagebreak
+Our idea is to develop a way to score the grammaticality of an input sentence based on the comparison of that sentence?s POS tag sequence to a generated grammar rule set.\\
+This grammaticality scoring method could someday replace human judgement in Automatic Text Summarization evaluation.
 
 
 % --------------------------------------------------------------------
-% --------------------------------------------------------------------
-\section{Methodology}
-% --------------------------------------------------------------------
-% --------------------------------------------------------------------
-Info on how we compared new sentences to dictionary to get grammar score.
-
-% --------------------------------------------------------------------
-\subsection{Subsection?}
+\subsection{Natural Language Toolkit}
 % --------------------------------------------------------------------
 
-% --------------------------------------------------------------------
-\subsubsection{Subsubsection?}
-% --------------------------------------------------------------------
-Just showing that subsubsections are possible to do if needed.
+Natural language processing with Python.\\
+Excellent documentation at http://www.nltk.org/book/ \\
+Helps to tokenize and tag sentences.\\
+Based on Penn Treebank POS tags.\\
 
+% --------------------------------------------------------------------
+\subsection{NLTK - Tagging Sentences}
+% --------------------------------------------------------------------
+
+Initial Sentence: "I went on a walk. It was nice outside."\\
+Tokenize Sentence: ['I went on a walk.', 'It was nice outside.']\\
+Tokenize Words: [['I','went','on','a','walk','.'], ['It','was','nice','outside','.']\\
+Tag Words in Sentence: [('I', 'PRP'), ('went', 'VBD'), ('on', 'IN'), ('a', 'DT'), ('walk', 'NN'), ('.', '.')]\\
+
+
+% --------------------------------------------------------------------
+\subsection{Project Gutenberg}
+% --------------------------------------------------------------------
+
+Used literature from Gutenberg as sentences to tag. 
+Pride and Prejudice by Jane Austen
+Alice's Adventures in Wonderland by Lewis Carroll
+Moby Dick by Herman Melville
+The Picture of Dorian Gray by Oscar Wilde 
+Assuming correct grammar.
+
+
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+\section{Algorithm}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+
+
+% --------------------------------------------------------------------
+\subsection{Generating Rule Set}
+% --------------------------------------------------------------------
+
+\begin{enumerate}
+   \item Import list of grammatically correct sentences
+   \item Tokenize sentences
+   \item Tag sentences - generate POS tags
+   \item Extract POS tag sequences into txt file
+  \end{enumerate}
+
+% --------------------------------------------------------------------
+\subsection{Grading Against Rule Set}
+% --------------------------------------------------------------------
+ To score an input sentence or sentences:
+ 
+\begin{enumerate}
+   \item Read sentence(s)/summary
+   \item Tokenize sentence(s)
+   \item Tag sentence(s) 
+   \item Extract POS tag sequences
+   \item Compare tag sequence generated from input sentence to existing rule set
+   \item Score 1 = good grammar (found in rule set), Score 0 = bad grammar (not found)
+  \end{enumerate}
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 \section{Results}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Results.
+What results are we expecting?\\
+0 for bad grammatical sentence\\
+1 for good grammatical sentence\\
+
+What have we seen?\\
+Works for sentences/structures we know are in the text file.\\
+Does not work on all grammatically correct sentences...yet\\
+
+
+
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+\section{Limitations}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+Infiniteness of language\\
+Text file becoming too big\\
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
@@ -92,6 +184,13 @@ Results.
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 Conclusion
+
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+\section{Future Work}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+Future work
 
 \newpage
 
