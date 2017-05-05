@@ -1,4 +1,5 @@
 import nltk
+import bisect
 
 #Open a file and return read file as string
 def openNewText(someFileName):
@@ -50,12 +51,21 @@ def checkForExistingPattern(somePattern, fileData):
     fileData.seek(0)                #Resets cursor to beginning of file
     lines = fileData.readlines()    #Reads all lines of file
 
-    for line in lines:
-        line = line.split("\t")     #Split string of POS back into list of POS
-        line = line[:-1]            #Strips off random '\n' that gets added?
-        if(somePattern == line):
-            return True             #If match, jump out of loop and return True
-    return False                    #If never a match, return False
+    #Convert list to string to compare with file
+    tempString = ''
+    for tag in somePattern:     
+        tempString = tempString + tag + "\t"       
+
+    tempString = tempString + "\n"  #In order to match the newline character at the end of each line
+
+    position = bisect.bisect(lines, tempString)     #Does the actual binary searching, and returns where it should go
+    
+    if(len(lines)==0):
+        return False                                #If nothing in file yet, return False
+    else:
+        if(tempString == lines[position-1]):        #Checks to see if it already exists
+            return True
+    return False                                    #If never a match, return False
 
 
 #Opens up the current file and sorts alphabetically. 
@@ -85,40 +95,58 @@ def gradeSummary(listOfSummarySentences):
         print(grades)
 
 #Main function
+#Option 1 - Add grammatically correct sentences to database, type file name
+#Option 2 - Grade a summary, type file name of summary
+#Option 3 - Get break down of a sentence, type in sentence
 def main():
+    option = -1
+    
+    while option not in {1, 2 ,3}:
+        option = input('Enter:\n 1 to import new sentences into the database.\n 2 to grade a summary.\n 3 to get a breakdown of a custom sentence.\n')
+        try:
+            option = int(option)
+        except ValueError:
+            print('That is not a number')
 
-    #Open a file and import the text in for our "database"
-#    importSentence = openNewText("randSents.txt")
+    if option == 1:
+        sentencesToAddFile = input('Please type the file name of the new sentences you would like to add to the database: \n')
+        
+        #Open a file and import the text in for our "database"
+        importSentence = openNewText(sentencesToAddFile)
 
-    #If you want to use the hard coded test sentence
-    #just replace the importSentence parameter below with testSentence
-#    testSentence = useTestSentence();
+        #Convert raw text into list of sentences.
+        sentences = nltk.sent_tokenize(importSentence)
 
-    #Convert raw text into list of sentences.
-#    sentences = nltk.sent_tokenize(importSentence)
+        #Convert the sentences to a list of tags
+        listOfTags = convertToTags(sentences)
 
-    #Convert the sentences to a list of tags
-#    listOfTags = convertToTags(sentences)
+        #Will try to write add new sequences, if not already included
+        writeTagsToFile(listOfTags)
 
-    #Will try to write add new sequences, if not already included
-#    writeTagsToFile(listOfTags)
+        #Sort the specifice file by line.
+        sortFile('allTagSequences.txt')
+        
+    elif option == 2:
+        summaryFile = input('Please type the file name of the summary that you would like to have graded: \n')
 
-    #Sort the specifice file by line.
-#    sortFile('allTagSequences.txt')
+        #Check a sequence and responds with match or not
+        #Currently just using hardcoded examples, but they will
+        #be read in from one of the computerized summeries
+        #gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.'],['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])    #Bad Grammar (Made up 'PRQ')
+        #gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
 
-    #Check a sequence and responds with match or not
-    #Currently just using hardcoded examples, but they will
-    #be read in from one of the computerized summeries
-    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.'],['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])    #Bad Grammar (Made up 'PRQ')
-    gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
-
-    gradeSummary(convertToTags(nltk.sent_tokenize(openNewText("gradeSents.txt"))))
-
-    #Open the new sentences, tokenize it, convert it to just tokens
-    #newSentence = openNewSentence("newSentence.txt")
-    #sentencesToCheck = nltk.sent_tokenize(importSentence)
-    #convertToTags(sentencesToCheck)
-
+        gradeSummary(convertToTags(nltk.sent_tokenize(openNewText(summaryFile))))
+    elif option == 3:
+        with open('allTagSequences.txt', 'r+') as fileDatabase:
+            sentenceToBreakdown = input('Please type the sentence in that you would like to have broken down: \n')
+            #Open the new sentences, tokenize it, convert it to just tokens
+            sentenceToCheck = nltk.sent_tokenize(sentenceToBreakdown)
+            listOfTags = convertToTags(sentenceToCheck)
+            print(convertToTags(sentenceToCheck))
+            for sequence in listOfTags:
+                doesItExist = checkForExistingPattern(sequence, fileDatabase)
+                print('Is sequence already in database: ' + str(doesItExist))
+    
 
 #Start the program
 main()
