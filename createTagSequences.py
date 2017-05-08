@@ -1,5 +1,6 @@
 import nltk
 import bisect
+from lineCount import lineCount
 
 #Open a file and return read file as string
 def openNewText(someFileName):
@@ -110,7 +111,8 @@ def main():
 
     if option == 1:
         sentencesToAddFile = input('Please type the file name of the new sentences you would like to add to the database: \n')
-        
+        print('Number of lines in ' + sentencesToAddFile + ': ' + str(lineCount(sentencesToAddFile)))
+
         #Open a file and import the text in for our "database"
         importSentence = openNewText(sentencesToAddFile)
 
@@ -125,6 +127,8 @@ def main():
 
         #Sort the specifice file by line.
         sortFile('allTagSequences.txt')
+
+        print('Number of lines in allTagSequences.txt: ' + str(lineCount('allTagSequences.txt')))
         
     elif option == 2:
         summaryFile = input('Please type the file name of the summary that you would like to have graded: \n')
