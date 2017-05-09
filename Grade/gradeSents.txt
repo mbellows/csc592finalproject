@@ -1,11 +1,5 @@
 Apart from drugs, detectives believe money is laundered from a variety of black market deals involving arms and high technology.
 
-I slept.
-
-I like carrot cake.
-
-Go!
-
 Detectives believe money is laundered from a variety of black market deals.
 
 Apart from drugs detectives believe money is laundered from a black market deals involving arms and technology.
@@ -21,3 +15,9 @@ Mrs. Allan's son disappeared in 1989, after a party during his trip across North
 Mrs. Allan's son disappeared in May, 1989, after a party during his packing trip across North America.
 
 Mrs. Allan's son disappeared in May 1989, after a party during his trip.
+
+I slept.
+
+I like carrot cake.
+
+Go!
