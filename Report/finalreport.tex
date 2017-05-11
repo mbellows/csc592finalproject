@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{caption}
+\usepackage{appendix}
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{multicol}
 \setlength{\columnsep}{1cm}
@@ -38,21 +39,14 @@ Summary of paper.
 \section{Introduction}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Discuss previous paper and how we feel native English speakers grading sentences is not a good metric (reproducibility, subjectivity, credentials, etc.). How we aim to solve this issue in our paper and brief overview of our process.
+In the field of Automatic Text Summarization, there are two main categories of research: extractive and abstractive summarization. Extractive summarization describes the process of selecting contextually important sentences from the document and concatenating them to form a summary, while abstractive summarization aims to generate novel sentences that represent the main idea in a more concise manner. With advances in natural language processing and computer science, abstractive summarization and its newer counterpart, compressive summarization, have grown in popularity. Despite this growth in the field, it seems the methods used to evaluate progress have not scaled well, causing the community to continue to rely on human subjectivity as a metric in grading grammaticality and linguistics. In this paper we propose a model for evaluating grammaticality in a more objective and replicable way.
 
 
 % --------------------------------------------------------------------
 \subsection{Motivation}
 % --------------------------------------------------------------------
-"We invited 3 English native speakers to do this evaluation." -- original paper 
-\begin{itemize}
-  \item Subjective
-  \item Unreplicable
-  \item Inconsistent
-\end{itemize}
+In recent years, there has been research into using Integer Linear Programming for compressive summarization. In a paper by Li, Liu, Liu, Zhao, and Weng, we see the author?s claim to make significant improvements in the linguistic quality of generated sentences using ILP and constituent parse trees[add citation to original paper]. Curious to realize just how significant the improvements were, we looked into their method of measurement. In the paper, Li et al. cites that they ``invited [three] native English speakers to do the evaluation" [cite original paper]. Taking note of the lack of replicability of this method, we recognized that there is a need for a more objective way to score the grammaticality and linguistic quality of sentences in order to further research in the growing field of Automatic Text Summarization. A more consistent method of grammaticality evaluation will help researchers measure the effectiveness of their systems, ranking them against competing research.
 
-We recognize that there is a need for a more objective method of scoring the grammaticality of sentences in order to further research into the growing field of Automatic Text Summarization.
-Grammaticality evaluation will help rank competing systems as well as provide developers of new solutions with a means to measure the effectiveness of their systems.\\
 
 Some examples of citing formatting.\\
 
@@ -61,33 +55,16 @@ Many hospitals face significant budgetary concerns and, due to Medicare regulati
 % --------------------------------------------------------------------
 \subsection{NLP Community}
 % --------------------------------------------------------------------
-\begin{itemize}
-   \item What is the community standard?
-   \begin{itemize}
-      \item ROUGE metric
-      \item Human Judgement
-   \end{itemize}
-   \item How is human judgement used?
-   \begin{itemize}
-      \item Subjective scoring on 1-5 scale
-      \item grammaticality, non-redundancy, clarity, coherence
-      \item Often random participants, native English speakers
-      \item DUC conference uses a set of questions for assessors
-   \end{itemize}
-      \item Why hasn't a more objective method been used before?
-   \begin{itemize}
-      \item There are commercial solutions to grammar checking
-      \item Aside from that, the NLP community has not adopted a more objective method
-      \item Very few instances of previous research, Quantitative evaluation of grammaticality of summaries (Ravikiran Vadlapudi and Rahul Katragadda, 2010)
-   \end{itemize}
-\end{itemize}
+As research began with extractive summarization, it seems that the focus of Automatic Text Summarization is still on content and salience. In extractive summarization, the sentences that comprise the summary have not been altered in a way that could change their grammar, and assuming that the source document has correct grammar, there isn?t a need to score grammaticality. Due to this, the community standard for grading automatic summarization is the ROUGE metric [Yao]. This metric uses a comparison of n-grams between the summary to be evaluated and one or several human-written reference summaries, essentially scoring the content of the summary. Yao, Wan, and Xiao write that aside from content, evaluation on other aspects of summaries relies heavily on human judgement. At DUC and TAC, the main conferences in the field, human judges are asked to rate different aspects of the summaries. This manual evaluation, on grammaticality, non-redundancy, clarity, and coherence, is said to be indispensable as there is no better solution at this time[Yao].
+
+This method of evaluation is used across the community. We see Li et al. asking a small sample of English native speakers to give a rating, on a scale from 1, bad, to 5, good, for both grammar and coherence. Woodsend and Lapata conduct their human judgement evaluations over the internet using Mechanical Turk, using a larger sample, of 54 volunteers. These self-reported native English speakers grade each summary for grammaticality and informativeness, on a scale of 1 to 5, after successful completion of comprehension questions[cite Woodsend and Lapata]. In our research, we are curious as to why a better scaling solution has not been developed, or been applied, before. At this time, there are commercial solutions that grade grammar, but none have seem to have been applied to this community. In the model presented in this paper, we attempt to find a way to bridge this gap, so that automatic summarization research does not have to rely on the subjectivity of human judgement.
+
 
 % --------------------------------------------------------------------
 \subsection{Grammar}
 % --------------------------------------------------------------------
-What is grammar?\\
-The system of rules and syntax that defines how things should be written, spoken.\\
-Gives communication an understood, defined meaning between two or more parties.
+In order to grade a summary on grammaticality, a definition for grammar needs to be established. Grammar is, simply put, a system of rules and syntax that defines how things should be written and spoken. Grammar gives communication an understood, defined
+meaning between two or more parties. These rules can be further defined using words? parts of speech and their relation to each other. ``We say a sentence is grammatically well formed when the adjacent words are in agreement with each other. That is, the parts-of-speech (POS) tags of adjacent words are mutually compatible, where the level of compatibility accounts to the degree of acceptance." \cite{vadlapudi2010} Using this, we can determine the importance of compatible combinations of POS tags in grading overall grammar.
 
 
 % --------------------------------------------------------------------
@@ -95,8 +72,7 @@ Gives communication an understood, defined meaning between two or more parties.
 \section{Parts of Speech Tagging}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Our idea is to develop a way to score the grammaticality of an input sentence based on the comparison of that sentence?s POS tag sequence to a generated grammar rule set.\\
-This grammaticality scoring method could someday replace human judgement in Automatic Text Summarization evaluation.
+Our idea is to develop a way to score the grammatical correctness of an input sentence based on the comparison of that sentence?s POS tag sequence to a generated grammar rule set. This ruleset can be produced by processing a large number of grammatically correct sentences and analyzing these correct combinations of respective POS tags. By similarly processing automated text summaries into series of POS tags, we have the foundation for comparing a known set of correct sequences to these new, grammatically ungraded sentences. This grammaticality scoring method could someday replace human judgement in Automatic Text Summarization evaluation which will make this grading process more objective, reliable, and repeatable.
 
 
 % --------------------------------------------------------------------
@@ -133,18 +109,7 @@ In using NLTK, we are able to transform regular sentences into POS tags. There a
 % --------------------------------------------------------------------
 In order to build the rule set of correct tag sequences, literature from Project Gutenberg was used. \cite{gutenberg} Ten famous literature works were used. They were picked based on their popularity and the fact that the authors are all native English speakers. Because of their native English speaker and their world-wide renown, proper grammar is assumed. The ten pieces we used are as follows.
 
-\begin{enumerate}
-   \item \textit{The Adventures of Tom Sawyer} by Mark Twain
-   \item \textit{Alice in Wonderland} by Lewis Carroll
-   \item \textit{Emma} by Jane Austen
-   \item \textit{Jane Eyre} by Charlotte Bronte
-   \item \textit{Moby Dick} by Herman Melville
-   \item \textit{The Picture of Dorian Gray} by Oscar Wilde
-   \item \textit{Pride and Prejudice} by Jane Austen
-   \item \textit{Sense and Sensibility} by Jane Austen
-   \item \textit{A Tale of Two Cities} by Charles Dickens
-   \item \textit{The Yellow Wallpaper} by Charlotte Perkins Gilman
-\end{enumerate}
+
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
@@ -172,7 +137,7 @@ Next the algorithm compares these new sequences with the current database to che
 % --------------------------------------------------------------------
 In order to grade now against the aforementioned ruleset, we must now compare the grammar sequences of sentences to be graded with the ones that we already know to be correct. The new sentences must first be handled as the ones were in Section 4.1. They are first read and then processed using the NLTK library. Again, this tokenizes them into individual sentences, then words, and finally broken into sequences of POS tags.
 
-It will next loop through each sequence generated from summary or set of sentences and search for a matching sequence in the established ruleset. A binary search is performed on the ruleset and if a match is found, the sentence will receive a score of `1'. If a sentence does not find a matching sequence, it is assumed grammatically incorrect and thus will receive a score of `0.' Summing up all the scores across the input sentences, it is then divided by the total number of sentences to get an average score. This final score is the given grade for the summary?s grammatical correctness.
+It will next loop through each sequence generated from summary or set of sentences and search for a matching sequence in the established ruleset. A binary search is performed on the ruleset and if a match is found, the sentence will receive a score of `1'. If a sentence does not find a matching sequence, it is assumed grammatically incorrect and thus will receive a score of `0.' Summing up all the scores across the input sentences, it is then divided by the total number of sentences to get an average score. This final score is the given grade for the summary's grammatical correctness.
 
 \begin{Figure}  
    \centering
@@ -215,7 +180,7 @@ Conclusion
 \section{Future Work}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Future work
+In the future, we hope to further decrease the false negative rate by implementing a system to weigh grammaticality on a scale, versus scoring it completely correct or incorrect. We think that grading on a scale, meaning a sentence can be partially correct, would decrease the average number of false negatives. In addition, we think it will be important to experiment with additional tagging systems, mentioned in Section 3.1. Currently, we are using a very simple tagset. Our hypothesis was that the more simple the tag set, the more general sequences we would get, meaning more overlap in rule sequences. After reporting only about a 5\% overlap, we think that experimenting with more robust tagsets could have an significant impact on our results.
 
 \newpage
 
@@ -223,4 +188,72 @@ Future work
 \bibliographystyle{ieeetr}
 
 \end{multicols}
+
+\pagebreak
+
+\appendix
+\appendixpage
+
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+\section{Literature}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+Listed are the pieces of literature used in the created of the tag sequences file. Literature denoted with a "G" was obtained from Project Gutenberg. Anything denoted with a "P" indicates a book from one of the author's personal collection. The literature is ordered in the way it was added to the tag sequences file.
+
+\begin{enumerate}
+   \item Carroll, Lewis. (2008). \textit{Alice in Wonderland}. Urbana, Illinois: Project Gutenberg. Retrieved April 1, 2017, from http://www.gutenberg.org/ebooks/11. G.
+   \item Bronte, Charlotte. (1998). \textit{Jane Eyre}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/cache/epub/1260/pg1260.txt. G. 
+   \item Twain, Mark. (2004). \textit{The Adventures of Tom Sawyer}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/files/74/74-0.txt. G.
+   \item Melville, Herman. (2001). \textit{Moby Dick}. Urbana, Illinois: Project Gutenberg. Retrieved April 1, 2017, from http://www.gutenberg.org/files/2701/2701-0.txt. G.
+   \item Wilde, Oscar. (1994). \textit{The Picture of Dorian Gray}. Urbana, Illinois: Project Gutenberg. Retrieved April 1, 2017, from http://www.gutenberg.org/cache/epub/174/pg174.txt. G.
+   \item Dickens, Charles. (1994). \textit{A Tale of Two Cities}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/cache/epub/174/pg174.txt. G.
+   \item Gilman, Charlotte Perkins. (1999). \textit{The Yellow Wallpaper}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/cache/epub/1952/pg1952.txt. G.
+   \item Austen, Jane. (1994). \textit{Emma}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/files/158/158-0.txt. G. 
+   \item Austen, Jane. (1998). \textit{Pride and Prejudice}. Urbana, Illinois: Project Gutenberg. Retrieved April 1, 2017, from http://www.gutenberg.org/files/1342/1342-0.txt. G.
+   \item Austen, Jane. (1994). \textit{Sense and Sensibility}. Urbana, Illinois: Project Gutenberg. Retrieved April 26, 2017, from http://www.gutenberg.org/cache/epub/161/pg161.txt. G.
+   \item Barrie, J. M. (2008). \textit{Peter Pan}. Urbana, Illinois: Project Gutenberg. Retrieved April 28, 2017, from http://www.gutenberg.org/files/16/16-0.txt. G.
+   \item Wells, H. G. (2004). \textit{The Time Machine}. Urbana, Illinois: Project Gutenberg. Retrieved April 28, 2017, from http://www.gutenberg.org/cache/epub/35/pg35.txt. G.
+   \item Stevenson, Robert Louis. (2006). \textit{Treasure Island}. Urbana, Illinois: Project Gutenberg. Retrieved April 28, 2017, from http://www.gutenberg.org/cache/epub/120/pg120.txt. G.
+   \item James, Henry. (1995). \textit{The Turn of the Screw}. Urbana, Illinois: Project Gutenberg. Retrieved April 28, 2017, from http://www.gutenberg.org/files/209/209-0.txt. G.
+   \item Rowling, J. K. (1997). \textit{Harry Potter and the Sorcerer's Stone}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (1999). \textit{Harry Potter and the Chamber of Secrets}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (1999). \textit{Harry Potter and the Prisoner of Azkaban}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (2000). \textit{Harry Potter and the Goblet of Fire}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (2003). \textit{Harry Potter and the Order of the Phoenix}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (2005). \textit{Harry Potter and the Half-Blood Prince}. New York, NY: Scholastic Press. P.
+   \item Rowling, J. K. (2007). \textit{Harry Potter and the Deathly Hallows}. New York, NY: Scholastic Press. P.
+   \item Gaiman, Neil. (2010). \textit{Stardust}. New York, NY: HarperTeen. P
+   \item Bradbury, Ray. (2008). \textit{Fahrenheit 451}. Moline, IL: Moline Public Library. P.
+   \item Bradbury, Ray. (2014). \textit{Something Wicked This Way Comes}. New York, NY: Harper. P.
+   \item Card, Orson Scott. (2003). \textit{Speaker for the Dead}. Princeton, NJ: Princeton. P.
+   \item Collins, Suzanne. (2008). \textit{The Hunger Games}. New York, NY: Scholastic Press. P.
+   \item Collins, Suzanne. (2009). \textit{Catching Fire}. New York, NY: Scholastic Press. P.
+   \item Collins, Suzanne. (2010). \textit{Mockingjay}. New York, NY: Scholastic Press. P.
+   \item Fitzgerald, F. Scott. (1995). \textit{The Great Gatsby}. Ware: Wordsworth. P.
+   \item Gaimain, Neil. (2014). \textit{Neverwhere}. New York, NY: Harper. P.
+   \item Card, Orson Scott. (2009). \textit{Ender's Game}. New York, NY: Marvel Publishers. P.
+   \item Gaiman, Neil. (2003). \textit{American Gods}. New York, NY: Perennial. P.
+   \item Card, Orson Scott. (2002). \textit{Ender's Shadow}. New York, NY: Starscape. P.
+   \item Card, Orson Scott. (2002). \textit{Children of the Mind}. New York, NY: Starscape. P.
+   \item Herbert, Frank. (2005). \textit{Dune}. New York, NY: Ace Books. P.
+   \item Lowry, Lois. (1993). \textit{The Giver}. Boston, MA: Houghton Mifflin. P.
+   \item McEwan, Ian. (2002). \textit{Atonement: A Novel}. New York, NY: Nan A. Talese/Doubleday. P.
+   \item Larson, Erik. (2003). \textit{The Devil in the White City: Murder, Magic, and Madness at the Fair that Changed America}. Princeton, NJ: Princeton. P.
+   \item King, Stephen. (1977). \textit{The Shining}. New York, NY: Anchor. P.
+   \item King, Stephen. (2006). \textit{Cell}. London: Hodder \& Stoughton. P.
+   \item King, Stephen. (2004). \textit{Carrie}. New York, NY: Doubleday. P.
+   \item King, Stephen. (2001). \textit{Bag of Bones}. New York, NY: Scribner. P. 
+   \item Hemingway, Ernest. (2003). \textit{The Sun Also Rises}. New York, NY: Scribner. P.
+   \item Hemingway, Ernest. (1995). \textit{A Farewell to Arms}. New York, NY: Scribner. P.
+   \item Huxley, Aldous. (2007). \textit{Brave New World}. London: Grafton Books. P.
+   \item Irving, John. (2002). \textit{A Prayer for Owen Meany: A Novel}. New York, NY: Modern Library. P.
+   \item Jordan, Robert. (2000). \textit{The Eye of the World}. New York, NY: Tor Books, LLC. P.
+   \item Mitchell, Margaret. (2007). \textit{Gone with the Wind}. New York, NY: Scribner. P.
+   \item Kingsolver, Barbara. (2007). \textit{The Poisonwood Bible: A Novel}. New York, NY: Harper Perennial. P.
+   
+   
+\end{enumerate}
+
+
 \end{document}

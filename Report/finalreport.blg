@@ -4,45 +4,45 @@ The top-level auxiliary file: finalreport.aux
 The style file: ieeetr.bst
 Database file #1: references.bib
 Warning--there's a month but no year in gutenberg
-You've used 5 entries,
+You've used 6 entries,
             1876 wiz_defined-function locations,
-            508 strings with 4218 characters,
-and the built_in function-call counts, 1254 in all, are:
-= -- 123
-> -- 48
+            514 strings with 4409 characters,
+and the built_in function-call counts, 1403 in all, are:
+= -- 135
+> -- 56
 < -- 0
-+ -- 18
-- -- 13
-* -- 82
-:= -- 180
-add.period$ -- 5
-call.type$ -- 5
-change.case$ -- 4
++ -- 21
+- -- 15
+* -- 91
+:= -- 205
+add.period$ -- 6
+call.type$ -- 6
+change.case$ -- 5
 chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 57
-empty$ -- 121
-format.name$ -- 13
-if$ -- 306
+cite$ -- 7
+duplicate$ -- 66
+empty$ -- 138
+format.name$ -- 15
+if$ -- 341
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 3
-newline$ -- 18
-num.names$ -- 5
-pop$ -- 17
+int.to.str$ -- 6
+missing$ -- 4
+newline$ -- 21
+num.names$ -- 6
+pop$ -- 21
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 49
+skip$ -- 51
 stack$ -- 0
 substring$ -- 84
-swap$ -- 25
+swap$ -- 26
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 13
-width$ -- 6
-write$ -- 46
+while$ -- 14
+width$ -- 7
+write$ -- 54
 (There was 1 warning)
