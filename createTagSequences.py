@@ -34,7 +34,7 @@ def convertToTags(someSentences):
 
         tags = [tags[1] for tags in tagged]     #Just the tags.
         overallList.append(tags)
-    print('Count: ' str(count))
+    print('Count: ' + str(count))
     return overallList
 
 
@@ -116,7 +116,7 @@ def main():
 
     if option == 1:
         sentencesToAddFile = input('Please type the file name of the new sentences you would like to add to the database: \n')
-        print('Number of lines in ' + sentencesToAddFile + ': ' + str(lineCount(sentencesToAddFile)))
+        #print('Number of lines in ' + sentencesToAddFile + ': ' + str(lineCount(sentencesToAddFile)))
 
         #Open a file and import the text in for our "database"
         importSentence = openNewText(sentencesToAddFile)
@@ -133,7 +133,7 @@ def main():
         #Sort the specifice file by line.
         sortFile('allTagSequences.txt')
 
-        print('Number of lines in allTagSequences.txt: ' + str(lineCount('allTagSequences.txt')))
+        #print('Number of lines in allTagSequences.txt: ' + str(lineCount('allTagSequences.txt')))
         print('Number of lines in allTagSequences.txt: ' + str(sum(1 for line in open('allTagSequences.txt'))))
         
     elif option == 2:
