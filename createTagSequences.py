@@ -26,12 +26,15 @@ def useTestSentence():
 def convertToTags(someSentences):
     #Converting sentences into POS tags.
     overallList = []
+    count = 0
     for sents in someSentences:
+        count += 1
         tokens = nltk.word_tokenize(sents)      #Sents converted to list of words.
         tagged = nltk.pos_tag(tokens)           #Words to word and POS tag pairs.
 
         tags = [tags[1] for tags in tagged]     #Just the tags.
         overallList.append(tags)
+    print('Count: ' str(count))
     return overallList
 
 
@@ -131,6 +134,7 @@ def main():
         sortFile('allTagSequences.txt')
 
         print('Number of lines in allTagSequences.txt: ' + str(lineCount('allTagSequences.txt')))
+        print('Number of lines in allTagSequences.txt: ' + str(sum(1 for line in open('allTagSequences.txt'))))
         
     elif option == 2:
         summaryFile = input('Please type the file name of the summary that you would like to have graded: \n')
