@@ -4,8 +4,8 @@ from lineCount import lineCount
 
 #Open a file and return read file as string
 def openNewText(someFileName):
-    with open(someFileName, 'r+') as fileInput:
-        newText = fileInput.read()
+    with open(someFileName, 'rb+') as fileInput:
+        newText = fileInput.read().decode('utf8', 'ignore')
 
         return newText
 
