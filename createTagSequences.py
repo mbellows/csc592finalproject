@@ -39,7 +39,9 @@ def convertToTags(someSentences):
 #So if you keep running it without deleting output file, it'll append over and over
 def writeTagsToFile(someListOfTagSequences):
     with open('allTagSequences.txt', 'a+') as fileDatabase:
-        for sequence in someListOfTagSequences:
+        someListOfTagSequences.sort()
+        temp = [someListOfTagSequences[i] for i in range(len(someListOfTagSequences)) if i == 0 or someListOfTagSequences[i] != someListOfTagSequences[i-1]]
+        for sequence in temp:
             if(checkForExistingPattern(sequence, fileDatabase) is False):
                 for tag in sequence:
                     fileDatabase.write(tag + "\t")        #Export the tags (separated here by a tab)
