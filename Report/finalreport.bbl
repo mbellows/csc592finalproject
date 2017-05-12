@@ -20,6 +20,12 @@ R.~Vadlapudi and R.~Katragadda, {\em Quantitative Evaluation of Grammaticality
   of Summaries}, pp.~736--747.
 \newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2010.
 
+\bibitem{jurafsky}
+D.~Jurafsky and J.~H. Martin, {\em Speech and Language Processing: An
+  Introduction to Natural Language Processing, Computational Linguistics, and
+  Speech Recognition}.
+\newblock Pearson Education, Inc., 2009.
+
 \bibitem{nltk}
 S.~Bird, E.~Klein, and E.~Loper, ``Natural language processing with python,''
   2009.

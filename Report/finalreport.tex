@@ -45,7 +45,7 @@ In the field of Automatic Text Summarization, there are two main categories of r
 % --------------------------------------------------------------------
 \subsection{Motivation}
 % --------------------------------------------------------------------
-In recent years, there has been research into using Integer Linear Programming for compressive summarization. In a paper by Li, Liu, Liu, Zhao, and Weng, we see the author's claim to make significant improvements in the linguistic quality of generated sentences using ILP and constituent parse trees. \cite{li2014} Curious to realize just how significant the improvements were, we looked into their method of measurement. In the paper, Li et al. cites that they ``invited [three] native English speakers to do the evaluation" \cite{li2014}. Taking note of the lack of replicability of this method, we recognized that there is a need for a more objective way to score the grammaticality and linguistic quality of sentences in order to further research in the growing field of Automatic Text Summarization. A more consistent method of grammaticality evaluation will help researchers measure the effectiveness of their systems, ranking them against competing research.
+In recent years, there has been additional research in compressive summarization with a focus on grammar. In a paper by Li, Liu, Liu, Zhao, and Weng, we see the author's claim to make significant improvements in the linguistic quality of generated sentences using ILP and constituent parse trees. \cite{li2014} Curious to realize just how significant the improvements were, we looked into their method of measurement. In the paper, Li et al. cites that they ``invited [three] native English speakers to do the evaluation" \cite{li2014}. Taking note of the lack of replicability of this method, we recognized that there is a need for a more objective way to score the grammaticality and linguistic quality of sentences in order to further research in the growing field of Automatic Text Summarization. A more consistent method of grammaticality evaluation will help researchers measure the effectiveness of their systems, ranking them against competing research.
 
 % --------------------------------------------------------------------
 \subsection{NLP Community}
@@ -66,14 +66,14 @@ In order to grade a summary on grammaticality, a definition for grammar needs to
 \section{Parts of Speech Tagging}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Our idea is to develop a way to score the grammatical correctness of an input sentence based on the comparison of that sentence's POS tag sequence to a generated grammar rule set. This ruleset can be produced by processing a large number of grammatically correct sentences and analyzing these correct combinations of respective POS tags. By similarly processing automated text summaries into series of POS tags, we have the foundation for comparing a known set of correct sequences to these new, grammatically ungraded sentences. This grammaticality scoring method could someday replace human judgement in Automatic Text Summarization evaluation which will make this grading process more objective, reliable, and repeatable.
+Our idea is to develop a way to score the grammatical correctness of an input sentence based on the comparison of that sentence's POS tag sequence to a generated grammar rule set. We are focused only on the POS tag sequences because as stated by Jurafsky and Martin, POS tags are significant for the ``large amount of information they give about a word and its neighbors" \cite{jurafsky}. The POS tag ruleset can be produced by processing a large number of grammatically correct sentences and analyzing these correct combinations of respective POS tags. By similarly processing automated text summaries into series of POS tags, we have the foundation for comparing a known set of correct sequences to these new, grammatically ungraded sentences. This grammaticality scoring method could someday replace human judgement in Automatic Text Summarization evaluation which will make this grading process more objective, reliable, and repeatable.
 
 
 % --------------------------------------------------------------------
 \subsection{Natural Language Toolkit}
 % --------------------------------------------------------------------
 
-In order to do the work of tagging sentences with parts of speech (POS) tags, we utilized the Natural Language Toolkit (NLTK) \cite{nltk}. NLTK is written in python and has many functions for natural language processing. In particular, we used NLTK in order to tokenize and tag sentences to build a text file of POS tag sequences. The tags used by NLTK is the Penn Treebank Tagset (Figure 1).
+In order to do the work of tagging sentences with POS tags, we utilized the Natural Language Toolkit (NLTK) \cite{nltk}. NLTK is written in python and has many functions for natural language processing. In particular, we used NLTK in order to tokenize and tag sentences to build a text file of POS tag sequences. The tags used by NLTK is the Penn Treebank Tagset (Figure 1). The Penn Treebank Tagset was created from the original 87-tag tagset for the Brown corpus \cite{jurafsky}.
 
 Other systems were considered such as RASP and an NLP system created by Stanford. RASP (Robust Accurate Statistical Parsing) is a system designed for syntactic annotation of free text \cite{briscoe}. It is implemented using C and Common Lisp and uses POS tags derived from the CLAWS tagset. The CLAWS tagset is comprised of over 130 tags, depending on the version, so it is much more extensive than the Penn Treebank Tagset. For example, the CLAWS tagset goes into finer detail with verbs specifying individual tags for the verbs to be, to do, and to have. It even goes so far as to break out each of these verbs to have a tag per verb tense. Because RASP uses a larger tagset, we deemed it would be beneficial to start with the simplest tagset available.
 
@@ -102,11 +102,13 @@ These steps and the overall algorithm are further defined in Section 4.
 % --------------------------------------------------------------------
 \subsection{Project Gutenberg}
 % --------------------------------------------------------------------
-In order to build the rule set of correct tag sequences, literature from Project Gutenberg \cite{gutenberg} was used in addition to personally bought electronic literature. Project Gutenberg has a collection of free electronic books totaling more than 53,000. The majority of them are free because the books are considered public domain. A list of books used to create our file of tag sequences can be found in Appendix A. 
+In order to build the rule set of correct tag sequences, literature from Project Gutenberg \cite{gutenberg} and books from our personal electronic collections were used. Project Gutenberg has a collection of free electronic books totaling more than 53,000. The majority of them are free because the books are considered public domain. A list of books used to create our file of tag sequences can be found in Appendix A. 
 
-To use the books in our script for creating tag sequences, we had to use the .txt version in Project Gutenberg and convert our personal books from .mobi to .txt. The conversion of .mobi to .txt was done using the program Calibre. All files were then manually preprocessed and stripped of any text preceding or coming after the main text of the book. This includes title page information, letters by the author, acknowledgments, glossaries, etc.
+We used standard UTF-8 encoded text files for the books to use in our script for creating tag sequences. For Project Gutenberg, we individually downloaded the .txt version.  For our personal books, we converted them from .mobi to .txt. The conversion of .mobi to .txt was done using the program Calibre. All files were then manually preprocessed and stripped of any text preceding or coming after the main text of the book. This includes title page information, table of contents, letters by the author, acknowledgments, glossaries, etc.
 
-Initially, we started only using four pieces of literature [Appendix A: 1, 4, 5, 9]. They were picked based on their popularity and their availability at Project Gutenberg. Because of their world-wide renown, proper grammar is assumed. Eventually we had to expand our data set so we added ten more books from Project Gutenberg [Appendix A: 2, 3, 6, 7, 8, 10, 11, 12, 13, 14]. This was still not sufficient to what we were trying to accomplish and reasoned that we should start including more recent pieces of literature. So far, the most recent publication we had was from 1911 [Appendix A: 11]. Since recent literature is not available on Project Gutenberg, we started using personally purchased literature [Appendix A: 15 - ].
+Initially, we started only using four pieces of literature [Appendix A: 1, 4, 5, 9]. They were picked based on their popularity and their availability at Project Gutenberg. Because of their world-wide renown and the fact that they are published professionally,  proper grammar is assumed. Eventually we had to expand our data set so we added ten more books from Project Gutenberg [Appendix A: 2, 3, 6, 7, 8, 10, 11, 12, 13, 14]. This was still not sufficient to what we were trying to accomplish and reasoned that we should start including more recent pieces of literature. Up to this point, the most recent publication we had was from 1911 [Appendix A: 11]. Since recent literature is not available on Project Gutenberg, we started using personally purchased literature [Appendix A: 15 - 70].
+
+All of the books in Appendix A were sequentially run through the algorithm described in Section 4.1: Generating Rule Set. 
 
 
 % --------------------------------------------------------------------
@@ -135,13 +137,15 @@ Next the algorithm compares these new sequences with the current database to che
 % --------------------------------------------------------------------
 In order to grade now against the aforementioned ruleset, we must now compare the grammar sequences of sentences to be graded with the ones that we already know to be correct. The new sentences must first be handled as the ones were in Section 4.1. They are first read and then processed using the NLTK library. Again, this tokenizes them into individual sentences, then words, and finally broken into sequences of POS tags.
 
-It will next loop through each sequence generated from the summary or set of sentences and search for a matching sequence in the established ruleset. A binary search is performed on the ruleset and if a match is found, the sentence will receive a score of `1'. If a sentence does not find a matching sequence, it is assumed grammatically incorrect and thus will receive a score of `0.' Summing up all the scores across the input sentences, it is then divided by the total number of sentences to get an average score. This final score is the given grade for the summary's grammatical correctness.
-
 \begin{Figure}  
    \centering
    \includegraphics[width=\linewidth]{GradeAlgorithm}
    \captionof{figure}{Algorithm 2 - Grading Against Rule Set}
-\end{Figure}   
+\end{Figure} 
+
+It will next loop through each sequence generated from the summary or set of sentences and search for a matching sequence in the established ruleset. A binary search is performed on the ruleset and if a match is found, the sentence will receive a score of `1'. If a sentence does not find a matching sequence, it is assumed grammatically incorrect and thus will receive a score of `0.' Summing up all the scores across the input sentences, it is then divided by the total number of sentences to get an average score. This final score is the given grade for the summary's grammatical correctness.
+
+  
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
@@ -150,11 +154,11 @@ It will next loop through each sequence generated from the summary or set of sen
 % --------------------------------------------------------------------
 We expect that through grading summaries, grammatically correct sentences will have resulted with a score of `1' and grammatically incorrect sentences scored with a `0'. As the ruleset grows with the addition of more books, we also expect to see less false-negatives. 
 
-The ruleset was initially established with the input of ten classical books from Project Gutenberg resulting in 56,025 unique POS tag sequences to be used for grammatical comparison and grading. Preliminary results showed that it would find and score correctly sentence structures that were known to be within the ruleset. However, the ruleset was not robust enough to cover everything and thus there were some known grammatically correct sentences that were still being given a score of `0.'
+We created three different text files to run through our grader algorithm. One is a paragraph from Jane Austen's \textit{Pride and Prejudice} [Appendix B.1]. The second file is a file we created with sentences that have bad grammar [Appendix B.2]. The third file is a file created from sentences used in \cite{li2014} as well as a few sentences we created [Appendix B.3].
 
-The ruleset was then built upon dramatically resulting in 414,461 unique POS tag sequences.
+The ruleset was initially established with the input of ten classical books from Project Gutenberg [Appendix A: 1 - 10] resulting in 56,025 unique POS tag sequences to be used for grammatical comparison and grading. Grading showed that it would score [Appendix B.1] correctly (Score = 1), all the sentences in [Appendix B.2] as incorrect (Score = 0), and [Appendix B.3] as only a little correct (Score = 0.166).  Out of the 12 sentences in [Appendix B.3], only ``I slept." and ``Go!" received a score of 1. From these preliminary results, it shows that sentence structures that are known to be within the ruleset are graded appropriately. However, the ruleset was not robust enough to cover everything and thus there were some known grammatically correct sentences that were still being given a score of `0.'
 
-The algorithm was fed a control of one grammatically correct paragraph from one of the books included in our ruleset, one grammatically correct paragraph from an auto-summarizer, and one modified paragraph that was known to have a few grammatical mistakes.
+The ruleset was then built upon dramatically resulting in 527,250 unique POS tag sequences. The files outlined in Appendix B were run again. Like the first round of testing, [Appendix B.1] was scored as grammatically correct (Score = 1) and all the sentences in [Appendix B.2] as incorrect (Score = 0). We achieved a slight improvement with the grading of [Appendix B.3]. The overall score increased to 0.25. In addition to ``I slept." and ``Go!" being graded as correct (1's), ``I like carrot cake." was too. 
 
 
 % --------------------------------------------------------------------
@@ -162,25 +166,41 @@ The algorithm was fed a control of one grammatically correct paragraph from one 
 \section{Limitations}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-When creating the text file of correct POS tag sequences, it became apparent that it would continue to grow significantly no matter how many sentences were already included in the file. When added the ten books to it, it was apparent that there is not much overlap in sentence structure between each book. For example, the total number of sentences in all ten books is 58,895 while the tag sequences file has 56,025 sentences. This is a difference of only 2,870 meaning that between ten novels, there is only an overlap of about 5\%. This result is a clear example of the infiniteness of language. When discussing sentence construction in the NLTK documentation \cite{nltk}, they comment on how easy it is to ``extend sentences indefinitely." They go on to say ``it's not hard to concoct an entirely novel sentence, one that has probably never been used before in the history of the language." Because of the infiniteness of language, grammatically correct sentences that are not in the list of grammatically correct sequences is entirely possible.
+When creating the text file of correct POS tag sequences, it became apparent that it would continue to grow significantly no matter how many sentences were already included in the file. While there is overlap between new books and the existing dataset, we found there was not an increasing trend in overlap (Figure 4). This could be the result of not using enough material (i.e. more books need to be added) or because of the vast number of possible grammatically correct sentences.
 
-Another limitation that will start happening with this method as more sentences are added is the text file will continue to grow. As mentioned, the number of tag sequences currently in the file is about 415,000 and that is only after utilizing about 55 books. As new works are added and the file grows, there will be an increasing need to optimize the algorithms for better storage and more efficient searching and sorting.
+\begin{center} 
+   \centering
+   \includegraphics[width=\linewidth]{bookOverlap}
+   \captionof{figure}{Book Overlap - Numbers correspond to books listed in Appendix A.}
+\end{center}
 
-Limitations on books used\\
+While it could be that adding more sentences would yield a better result, we think this is a clear example of the infiniteness of language. When discussing sentence construction in the NLTK documentation \cite{nltk}, they comment on how easy it is to ``extend sentences indefinitely." They go on to say ``it's not hard to concoct an entirely novel sentence, one that has probably never been used before in the history of the language." Because of the infiniteness of language, grammatically correct sentences that are not in the list of grammatically correct sequences is entirely possible.
+
+Even though we think strongly that the poor results are because of the infiniteness of language, the choice of literature used could contribute to the overall results. The only genre we used was fiction. We might see an improvement in our results if we include other genres into our dataset. Different genres have varying styles so it potentially would increase the variety of sentence structures in our dataset.
+
+Another limitation that will start happening with this method as more sentences are added is the text file will continue to grow. As mentioned, the number of tag sequences currently in the file is 527,250 and that is only after utilizing about 70 books. As new works are added and the file grows, there will be an increasing need to optimize the algorithms for better storage and more efficient searching and sorting.
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 \section{Conclusion}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Conclusion
+In the NLP community there has been a lot of growth in both extractive and abstractive text summarization. One subfield of NLP that has not been matching the same growth though is being able to grade these summaries for correct grammar without the use of human graders. In this paper we put forward a methodology to automatically grade the grammaticality of these summarizations using the NLTK library. This technique revolved around growing a large, robust ruleset of known correct grammar and using this for comparison against the grammar of the summaries' sentences. The advantages of this methodology was to keep the grading automated and objective in order to replace the human factor for judging the correctness of grammar. The limitations that were run into however were not trivial. The number of possible and common grammar sequences turned out to be higher than initially expected resulting in some less than ideal results. The biggest issue being the algorithm was not able to correctly grade all correct sentences presented as correct sentences. As more books were added to the ruleset, we were able to see a slight improvement in the results but the percentage of overlap between the new book and the existing ruleset was never consistent. Taking into account the limitations of the literature used, it is possible that incorporating more genres will increase the overlap and therefore provide an interesting scoring mechanism for the NLP community.
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 \section{Future Work}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-In the future, we hope to further decrease the false negative rate by implementing a system to weigh grammaticality on a scale, versus scoring it completely correct or incorrect. We think that grading on a scale, meaning a sentence can be partially correct, would decrease the average number of false negatives. In addition, we think it will be important to experiment with additional tagging systems, mentioned in Section 3.1. Currently, we are using a very simple tagset. Our hypothesis was that the more simple the tag set, the more general sequences we would get, meaning more overlap in rule sequences. After reporting only about a 5\% overlap, we think that experimenting with more robust tagsets could have an significant impact on our results.
+In the future, we hope to further decrease the false negative rate by increasing the number of books used as well as incorporating different types of writing (i.e. news articles, biographies, non-fiction, etc.). It would also be beneficial to implement a different scoring system that weighs grammaticality on a scale versus scoring it completely correct or incorrect. We think that grading on a scale, meaning a sentence can be partially correct, would decrease the average number of false negatives.
+
+It would also be interesting to do an investigation into what sentences structures overlap between the pieces of literature. We might gain clues as to what we are missing and perhaps help us create a ruleset based on patterns versus complete sentence structures. As stated previously, it is easy to concoct new sentence structures with the use of conjunctions so it could be beneficial to build a rule set on simple sentences and grade new sentences by dividing it into parts based on the location of the conjunction.  
+
+In addition, we think it will be important to experiment with additional tagging systems, mentioned in Section 3.1. Currently, we are using a very simple tagset. Our hypothesis was that the more simple the tag set, the more general sequences we would get, meaning more overlap in rule sequences so it would be interesting to test this hypothesis by using the other tagsets. 
+
+Another aspect to investigate is grammar trees. As expressed by \cite{jurafsky}, grammar trees ``are integral to many computational applications, including grammar checking." NLTK has a modules that allow you to break down a sentence into its component parse tree. Instead of focusing on strictly the POS tag sequences, comparing tree structures could prove to be a better option. The individual tags could still be compared to but it would also give us the option to look at parent nodes for comparison.
+
+In sum, more work needs to be done to grade sentences correctly but there are certainly many options to research.
 
 \newpage
 
@@ -263,9 +283,78 @@ Listed are the pieces of literature used in the created of the tag sequences fil
    \item Pullman, Philip. (2001). \textit{The Golden Compass: His Dark Materials}. New York, NY: Knopf Books for Young Readers. P. 
    \item Pullman, Philip. (2001). \textit{The Subtle Knife: His Dark Materials}. New York, NY: Knopf Books for Young Readers. P. 
    \item Pullman, Philip. (2001). \textit{The Amber Spyglass: His Dark Materials}. New York, NY: Knopf Books for Young Readers. P. 
-   
+   \item Rand, Ayn. (2016). \textit{Anthem}. Littleton, Colorado: Coterie Classics. P.
+   \item Plath, Sylvia. (2015). \textit{The Bell Jar}. New York, NY: Harper Collins Publishing. P
+   \item Palahniuk, Chuck. (2006). \textit{Fight Club: A Novel}. New York, NY: W. W. Norton \& Company, Inc. P.
+   \item Orwell, George. (2003). \textit{1984}. New York, NY: Houghton Mifflin Harcourt. P.
+   \item Vonnegut, Kurt. (2010). \textit{Slaughterhouse-Five}. New York, NY: RosettaBooks. P.
+   \item Sanderson, Brandon. (2007). \textit{The Well of Ascension}. New York, NY: Tom Doherty Associates, LLC. P.
+   \item Sanderson, Brandon. (2008). \textit{The Hero of Ages}. New York, NY: Tom Doherty Associates, LLC. P.
+   \item Abagnale, Frank W. (1980). \textit{Catch Me If You Can}. New York, NY: Grosset \& Dunlap. P.
+   \item Alcott, Louisa May. (2004). \textit{Little Women}. New York, NY: Barnes \& Noble Books. P.
    
 \end{enumerate}
 
+
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+\section{Graded Sentences}
+% --------------------------------------------------------------------
+% --------------------------------------------------------------------
+Sentences used for grading.
+
+% --------------------------------------------------------------------
+\subsection{Excerpt from Book in Ruleset}
+% --------------------------------------------------------------------
+From Jane Austen's \textit{Pride and Prejudice}.\\
+
+The evening altogether passed off pleasantly to the whole family. Mrs.
+Bennet had seen her eldest daughter much admired by the Netherfield
+party. Mr. Bingley had danced with her twice, and she had been
+distinguished by his sisters. Jane was as much gratified by this as
+her mother could be, though in a quieter way. Elizabeth felt Jane's
+pleasure. Mary had heard herself mentioned to Miss Bingley as the most
+accomplished girl in the neighbourhood; and Catherine and Lydia had been
+fortunate enough never to be without partners, which was all that they
+had yet learnt to care for at a ball. They returned, therefore, in good
+spirits to Longbourn, the village where they lived, and of which they
+were the principal inhabitants. They found Mr. Bennet still up. With
+a book he was regardless of time; and on the present occasion he had a
+good deal of curiosity as to the event of an evening which had raised
+such splendid expectations. He had rather hoped that his wife's views on
+the stranger would be disappointed; but he soon found out that he had a
+different story to hear.
+
+% --------------------------------------------------------------------
+\subsection{Poor Grammar}
+% --------------------------------------------------------------------
+Sentences made by the authors with bad grammar. The third sentence is from [Appendix A: 11] with the sentence jumbled. The fifth sentence is from [Appendix A: 11] with improper verb agreement.\\
+
+The teapot car blue spits cloud.
+The moon cow jumped over the.
+All except one children, grow up.
+He walk to the store every Monday and Thursday.
+The rabbit-hole went straight on like a tunnel for some way, and then
+dips suddenly down, so suddenly that Alice had not a moment to think
+about stopping herself before she found herself falling down a very deep
+well.
+
+% --------------------------------------------------------------------
+\subsection{Sentences Used in Original Paper \cite{li2014}}
+% --------------------------------------------------------------------
+These sentence were mentioned in the paper by Li \cite{li2014} when using their approach at summarizing sentences. There are a couple of source sentences, human compressed sentences, and also algorithm compressed sentences. In addition, we created the last three sentences to see how simple sentences would score.\\
+
+Apart from drugs, detectives believe money is laundered from a variety of black market deals involving arms and high technology.
+Detectives believe money is laundered from a variety of black market deals.
+Apart from drugs detectives believe money is laundered from a black market deals involving arms and technology.
+Detectives believe money is laundered from a variety of black deals involving arms.
+Detectives believe money is laundered from black market deals.
+Mrs. Allan's son disappeared in May 1989, after a party during his back packing trip across North America.
+Mrs. Allan's son disappeared in 1989, after a party during his trip across North America.
+Mrs. Allan's son disappeared in May, 1989, after a party during his packing trip across North America.
+Mrs. Allan's son disappeared in May 1989, after a party during his trip.
+I slept.
+I like carrot cake.
+Go!
 
 \end{document}

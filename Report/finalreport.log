@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  11 MAY 2017 22:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  12 MAY 2017 15:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -285,7 +285,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 File: images/GenerateAlgorithm.png Graphic file (type png)
 
 <use images/GenerateAlgorithm.png>
-Package pdftex.def Info: images/GenerateAlgorithm.png used on input line 129.
+Package pdftex.def Info: images/GenerateAlgorithm.png used on input line 131.
 (pdftex.def)             Requested size: 212.25757pt x 335.41115pt.
  [6 <./images/GenerateAlgorithm.png>]
 <images/GradeAlgorithm.png, id=30, 294.09875pt x 514.92375pt>
@@ -295,35 +295,53 @@ File: images/GradeAlgorithm.png Graphic file (type png)
 Package pdftex.def Info: images/GradeAlgorithm.png used on input line 142.
 (pdftex.def)             Requested size: 212.25757pt x 371.63266pt.
  [7 <./images/GradeAlgorithm.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
+<images/bookOverlap.png, id=37, 692.5875pt x 427.5975pt>
+File: images/bookOverlap.png Graphic file (type png)
 
- []
-
-[8] (./finalreport.bbl) [9]
-Overfull \hbox (50.31198pt too wide) in paragraph at lines 211--212
+<use images/bookOverlap.png>
+Package pdftex.def Info: images/bookOverlap.png used on input line 173.
+(pdftex.def)             Requested size: 212.25757pt x 131.04666pt.
+ [8 <./images/bookOverlap.png>] [9] [10]
+(./finalreport.bbl) [11]
+Overfull \hbox (50.31198pt too wide) in paragraph at lines 231--232
 \OT1/cmr/m/n/10.95 Guten-berg. Re-trieved April 26, 2017, from http://www.guten
 berg.org/cache/epub/1952/pg1952.txt.
  []
 
-[10] [11] [12] [13] (./finalreport.aux) ) 
+[12] [13] [14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--332
+
+ []
+
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
+
+ []
+
+[17] (./finalreport.aux) ) 
 Here is how much of TeX's memory you used:
- 3279 strings out of 493014
- 51654 string characters out of 6133351
- 123307 words of memory out of 5000000
- 6800 multiletter control sequences out of 15000+600000
+ 3285 strings out of 493014
+ 51786 string characters out of 6133351
+ 125310 words of memory out of 5000000
+ 6805 multiletter control sequences out of 15000+600000
  9455 words of font info for 33 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,6n,39p,1200b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmti10.pfb>
-Output written on finalreport.pdf (13 pages, 203509 bytes).
+ 38i,6n,39p,1480b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr17.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb>
+Output written on finalreport.pdf (17 pages, 244278 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

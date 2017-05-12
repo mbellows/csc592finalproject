@@ -1,6 +1,5 @@
 import nltk
 import bisect
-from lineCount import lineCount
 
 #Open a file and return read file as string
 def openNewText(someFileName):
@@ -8,19 +7,6 @@ def openNewText(someFileName):
         newText = fileInput.read().decode('utf8', 'ignore')
 
         return newText
-
-#If you want to use some hard-coded text to test
-def useTestSentence():
-    text = """It is a truth universally acknowledged, that a single man in possession
-    of a good fortune, must be in want of a wife.
-
-    However little known the feelings or views of such a man may be on his
-    first entering a neighbourhood, this truth is so well fixed in the minds
-    of the surrounding families, that he is considered the rightful property
-    of some one or other of their daughters.
-    """
-
-    return text
 
 #Convert sentences to list of tags and then call write function
 def convertToTags(someSentences):
@@ -34,7 +20,7 @@ def convertToTags(someSentences):
 
         tags = [tags[1] for tags in tagged]     #Just the tags.
         overallList.append(tags)
-    print('Count: ' + str(count))
+    print('Count: ' + str(count))               #Number of sentences in file.
     return overallList
 
 
@@ -116,7 +102,6 @@ def main():
 
     if option == 1:
         sentencesToAddFile = input('Please type the file name of the new sentences you would like to add to the database: \n')
-        #print('Number of lines in ' + sentencesToAddFile + ': ' + str(lineCount(sentencesToAddFile)))
 
         #Open a file and import the text in for our "database"
         importSentence = openNewText(sentencesToAddFile)
@@ -133,17 +118,11 @@ def main():
         #Sort the specifice file by line.
         sortFile('allTagSequences.txt')
 
-        #print('Number of lines in allTagSequences.txt: ' + str(lineCount('allTagSequences.txt')))
+        #Number of POS sentences in dataset.
         print('Number of lines in allTagSequences.txt: ' + str(sum(1 for line in open('allTagSequences.txt'))))
         
     elif option == 2:
         summaryFile = input('Please type the file name of the summary that you would like to have graded: \n')
-
-        #Check a sequence and responds with match or not
-        #Currently just using hardcoded examples, but they will
-        #be read in from one of the computerized summeries
-        #gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', 'PRQ', '.'],['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])    #Bad Grammar (Made up 'PRQ')
-        #gradeSummary([['PRP', 'MD', 'VB', 'IN', 'PRP', '.']])	    #Existing Grammar
 
         gradeSummary(convertToTags(nltk.sent_tokenize(openNewText(summaryFile))))
     elif option == 3:
