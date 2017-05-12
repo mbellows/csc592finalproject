@@ -22,17 +22,16 @@
 
 \begin{document}
 \maketitle
+\pagebreak
+
+\begin{multicols}{2}
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
 \section{Abstract}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-Summary of paper. 
-
-\pagebreak
-
-\begin{multicols}{2}
+Despite advancements in Abstractive and Compressive summarization, the community standard for scoring automatic summarization neglects to objectively address grammaticality. In this paper we attempt to present an objective and replicable solution to this concern. Using the NLTK and the Penn Treebank Tagset, we generate an underlying rule set of POS tag sequences from a combination of modern and classic literature, assuming these widely accepted texts have correct grammar. This underlying rule set is used to lookup and match POS tag sequences, generated from input sentences. While further exploration is need to ensure the underlying rule set is optimally robust, our experimentation thus far has made visible progress towards an objective solution to grammaticality scoring of automatic summarization outputs. 
 
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
@@ -52,7 +51,7 @@ In recent years, there has been additional research in compressive summarization
 % --------------------------------------------------------------------
 As research began with extractive summarization, it seems that the focus of Automatic Text Summarization is still on content and salience. In extractive summarization, the sentences that comprise the summary have not been altered in a way that could change their grammar, and assuming that the source document has correct grammar, there is not a need to score grammaticality. Due to this, the community standard for grading automatic summarization is the ROUGE metric \cite{yao2017}. This metric uses a comparison of n-grams between the summary to be evaluated and one or several human-written reference summaries, essentially scoring the content of the summary. Yao, Wan, and Xiao write that aside from content, evaluation on other aspects of summaries relies heavily on human judgement. At the Document Understanding Conference (DUC) which later became known as the Text Analysis Conference (TAC), the main conferences in the field, human judges are asked to rate different aspects of the summaries. This manual evaluation, on grammaticality, non-redundancy, clarity, and coherence, is said to be indispensable as there is no better solution at this time \cite{yao2017}.
 
-This method of evaluation is used across the community. We see Li et al. asking a small sample of English native speakers to give a rating, on a scale from 1, bad, to 5, good, for both grammar and coherence \cite{li2014}. Woodsend and Lapata conduct their human judgement evaluations over the internet using Mechanical Turk, using a larger sample, of 54 volunteers. These self-reported native English speakers grade each summary for grammaticality and informativeness, on a scale of 1 to 5, after successful completion of comprehension questions \cite{woodsend2012}. In our research, we are curious as to why a better, more replicable and less subjective solution has not been developed, or been applied, before. At this time, there are commercial solutions that grade grammar, but none have been applied to this community that we saw in our research. In the model presented in this paper, we attempt to find a way to bridge this gap, so that automatic summarization research does not have to rely on the subjectivity of human judgement.
+This method of evaluation is used across the community. We see Li et al. asking a small sample of English native speakers to give a rating, on a scale from 1, bad, to 5, good, for both grammar and coherence \cite{li2014}. Woodsend and Lapata conduct their human judgement evaluations over the internet using Mechanical Turk, to generate a larger sample of 54 volunteers. These self-reported native English speakers grade each summary for grammaticality and informativeness, on a scale of 1 to 5, after successful completion of comprehension questions \cite{woodsend2012}. In our research, we are curious as to why a better, more replicable and less subjective solution has not been developed, or been applied, before. At this time, there are commercial solutions that grade grammar, but none have been applied to this community that we saw in our research. In the model presented in this paper, we attempt to find a way to bridge this gap, so that automatic summarization research does not have to rely on the subjectivity of human judgement.
 
 
 % --------------------------------------------------------------------
@@ -73,15 +72,15 @@ Our idea is to develop a way to score the grammatical correctness of an input se
 \subsection{Natural Language Toolkit}
 % --------------------------------------------------------------------
 
-In order to do the work of tagging sentences with POS tags, we utilized the Natural Language Toolkit (NLTK) \cite{nltk}. NLTK is written in python and has many functions for natural language processing. In particular, we used NLTK in order to tokenize and tag sentences to build a text file of POS tag sequences. The tags used by NLTK is the Penn Treebank Tagset (Figure 1). The Penn Treebank Tagset was created from the original 87-tag tagset for the Brown corpus \cite{jurafsky}.
-
-Other systems were considered such as RASP and an NLP system created by Stanford. RASP (Robust Accurate Statistical Parsing) is a system designed for syntactic annotation of free text \cite{briscoe}. It is implemented using C and Common Lisp and uses POS tags derived from the CLAWS tagset. The CLAWS tagset is comprised of over 130 tags, depending on the version, so it is much more extensive than the Penn Treebank Tagset. For example, the CLAWS tagset goes into finer detail with verbs specifying individual tags for the verbs to be, to do, and to have. It even goes so far as to break out each of these verbs to have a tag per verb tense. Because RASP uses a larger tagset, we deemed it would be beneficial to start with the simplest tagset available.
-
 \begin{Figure}  
    \centering
    \includegraphics[width=\linewidth]{POStags}
    \captionof{figure}{Penn Treebank Tagset}
-\end{Figure}   
+\end{Figure} 
+
+In order to do the work of tagging sentences with POS tags, we utilized the Natural Language Toolkit (NLTK) \cite{nltk}. NLTK is written in python and has many functions for natural language processing. In particular, we used NLTK in order to tokenize and tag sentences to build a text file of POS tag sequences. The tags used by NLTK is the Penn Treebank Tagset (Figure 1). The Penn Treebank Tagset was created from the original 87-tag tagset for the Brown corpus \cite{jurafsky}.
+
+Other systems were considered such as RASP and an NLP system created by Stanford. RASP (Robust Accurate Statistical Parsing) is a system designed for syntactic annotation of free text \cite{briscoe}. It is implemented using C and Common Lisp and uses POS tags derived from the CLAWS tagset. The CLAWS tagset is comprised of over 130 tags, depending on the version, so it is much more extensive than the Penn Treebank Tagset. For example, the CLAWS tagset goes into finer detail with verbs specifying individual tags for the verbs to be, to do, and to have. It even goes so far as to break out each of these verbs to have a tag per verb tense. Because RASP uses a larger tagset, we deemed it would be beneficial to start with the simplest tagset available.  
 
 The other system we considered is the NLP software available from The Stanford NLP group. Like NLTK, it uses the Penn Treebank tagset but instead of being implemented in python, they use Java. Ultimately, we decided to use python for our initial investigation because it is a good starting point. In addition, the documentation available from NLTK is extensive and easy to read.
 
@@ -166,13 +165,13 @@ The ruleset was then built upon dramatically resulting in 527,250 unique POS tag
 \section{Limitations}
 % --------------------------------------------------------------------
 % --------------------------------------------------------------------
-When creating the text file of correct POS tag sequences, it became apparent that it would continue to grow significantly no matter how many sentences were already included in the file. While there is overlap between new books and the existing dataset, we found there was not an increasing trend in overlap (Figure 4). This could be the result of not using enough material (i.e. more books need to be added) or because of the vast number of possible grammatically correct sentences.
-
 \begin{center} 
    \centering
    \includegraphics[width=\linewidth]{bookOverlap}
    \captionof{figure}{Book Overlap - Numbers correspond to books listed in Appendix A.}
 \end{center}
+
+When creating the text file of correct POS tag sequences, it became apparent that it would continue to grow significantly no matter how many sentences were already included in the file. While there is overlap between new books and the existing dataset, we found there was not an increasing trend in overlap (Figure 4). This could be the result of not using enough material (i.e. more books need to be added) or because of the vast number of possible grammatically correct sentences.
 
 While it could be that adding more sentences would yield a better result, we think this is a clear example of the infiniteness of language. When discussing sentence construction in the NLTK documentation \cite{nltk}, they comment on how easy it is to ``extend sentences indefinitely." They go on to say ``it's not hard to concoct an entirely novel sentence, one that has probably never been used before in the history of the language." Because of the infiniteness of language, grammatically correct sentences that are not in the list of grammatically correct sequences is entirely possible.
 
@@ -340,9 +339,9 @@ about stopping herself before she found herself falling down a very deep
 well.
 
 % --------------------------------------------------------------------
-\subsection{Sentences Used in Original Paper \cite{li2014}}
+\subsection{Sentences Used in Original Paper}
 % --------------------------------------------------------------------
-These sentence were mentioned in the paper by Li \cite{li2014} when using their approach at summarizing sentences. There are a couple of source sentences, human compressed sentences, and also algorithm compressed sentences. In addition, we created the last three sentences to see how simple sentences would score.\\
+These sentences were mentioned in \cite{li2014} when using their approach at summarizing sentences. There are a couple of source sentences, human compressed sentences, and also algorithm compressed sentences. In addition, we created the last three sentences to see how simple sentences would score.\\
 
 Apart from drugs, detectives believe money is laundered from a variety of black market deals involving arms and high technology.
 Detectives believe money is laundered from a variety of black market deals.
