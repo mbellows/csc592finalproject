@@ -1,18 +1,24 @@
 \begin{thebibliography}{1}
 
-\bibitem{catlin2008}
-A.~Catlin, C.~Cowan, M.~Hartman, and S.~Heffler, ``National health spending in
-  2006: A year of change for prescription drugs,'' {\em Health Affairs},
-  vol.~27, no.~1, pp.~14--29, 2008.
+\bibitem{li2014}
+C.~Li, Y.~Liu, F.~Liu, L.~Zhao, and F.~Weng, ``Improving multi-documents
+  summarization by sentence compression based on expanded constituent parse
+  trees,'' {\em Empirical Methods in Natural Language Processing},
+  pp.~691--701, October 2014.
 
-\bibitem{kansagara2011}
-D.~Kansagara {\em et~al.}, ``Risk prediction models for hospital readmission: A
-  systematic review,'' {\em Journal of the American Medical Association},
-  vol.~306, no.~15, pp.~1688--1698, 2011.
+\bibitem{yao2017}
+J.-g. Yao, X.~Wan, and J.~Xiao, ``Recent advances in document summarization,''
+  {\em Knowledge and Information Systems}, pp.~1--40, 2017.
 
-\bibitem{vadlapudi2010}
-R.~Vadlapudi and R.~Katragadda, ``Quantitative evaluation of grammaticality of
-  summaries,'' {\em http://www.academia.edu}, 2010.
+\bibitem{woodsend2012}
+K.~Woodsend and M.~Lapata, ``Multiple aspect summarization using integer linear
+  programming,'' {\em Empirical Methods in Natural Language Processing and
+  Computational Natural Language Learning}, pp.~233--243, July 2012.
+
+\bibitem{Vadlapudi2010}
+R.~Vadlapudi and R.~Katragadda, {\em Quantitative Evaluation of Grammaticality
+  of Summaries}, pp.~736--747.
+\newblock Berlin, Heidelberg: Springer Berlin Heidelberg, 2010.
 
 \bibitem{nltk}
 S.~Bird, E.~Klein, and E.~Loper, ``Natural language processing with python,''
@@ -20,7 +26,7 @@ S.~Bird, E.~Klein, and E.~Loper, ``Natural language processing with python,''
 
 \bibitem{briscoe}
 T.~Briscoe, J.~Carroll, and R.~Watson, ``The second release of the rasp
-  system,'' {\em Proceedins of the COLING/ACL 2006 Interactive Presentation
+  system,'' {\em Proceedings of the COLING/ACL 2006 Interactive Presentation
   Sessions}, pp.~77--80, 2006.
 
 \bibitem{gutenberg}
